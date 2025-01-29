@@ -25,15 +25,25 @@ searchbtn.addEventListener("click", () => {
 
 const call_fetch = async (moviename) => {
     try {
-        let response = await fetch(`https://www.omdbapi.com/?apikey=7af09fc7&t=${moviename}`)
-        let data = await response.json()
-        displaydata(data)
+        let response = await fetch(`https://www.omdbapi.com/?apikey=7af09fc7&t=${moviename}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        let data = await response.json();
+
+        if (data.Response === "False") {
+            throw new Error(data.Error);
+        }
+
+        displaydata(data);
     } catch (error) {
-        console.log(error)
+        console.error("Error fetching data:", error);
+        main.innerHTML = `<p style="color:red; font-size:18px;">⚠️ ${error.message}</p>`;
     }
+};
 
-
-}
 const displaydata = (print) => {
     main.innerHTML = ''
     let div = document.createElement("div")
