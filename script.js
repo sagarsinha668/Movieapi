@@ -25,7 +25,7 @@ searchbtn.addEventListener("click", () => {
 
 const call_fetch = async (moviename) => {
     try {
-        let response = await fetch(`http://www.omdbapi.com/?apikey=7af09fc7&t=${moviename}`)
+        let response = await fetch(`https://www.omdbapi.com/?apikey=7af09fc7&t=${moviename}`)
         let data = await response.json()
         displaydata(data)
     } catch (error) {
